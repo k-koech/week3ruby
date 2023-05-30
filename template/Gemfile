@@ -12,6 +12,10 @@ gem "sinatra-activerecord"
 # https://github.com/ruby/rake
 gem "rake"
 
+gem 'bcrypt'
+gem 'puma', '~> 6.1'
+# gem 'thin', '~> 1.8', '>= 1.8.1'
+
 # Provides functionality to interact with a SQLite3 database
 # https://github.com/sparklemotion/sqlite3-ruby
 gem "sqlite3", "~> 1.4"
@@ -23,6 +27,7 @@ gem "require_all"
 # These gems will only be used when we are running the application locally
 group :development do
   gem "pry"
+  gem "rerun"
 end
 
 # These gems will only be used when we are running tests
