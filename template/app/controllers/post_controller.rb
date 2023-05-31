@@ -2,8 +2,9 @@ class PostController < ApplicationController
 
         # Get all post
         get "/posts" do
-          posts = Post.all
-          posts.to_json(include: [:user, :comments])
+            # authorize
+            posts = Post.all
+            posts.to_json(include: [:user, :comments])
        end
 
       #  get single post

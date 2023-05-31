@@ -4,46 +4,21 @@ class UserController < ApplicationController
            users = User.all
            users.to_json
         end
-
-        # post "/users/login" do
-        #     user = User.find_by(:username => params[:username])
-        #     if user && user.authenticate(params[:has_secure_password])
-
-        #     else
-
-
-        #     end
-
-        # end
-        post "/users/login" do
-            username = params[:username]
-            user = User.find_by(username: username )
-            puts "Propmo"
-            # puts params[:username]
-            puts "user #{user}"
-            if(user && user.authenticate(params[:password]))
-            #   session[:user_id] = user.id
-
-                message =  { :success => "Logged in successfully"}
-                message.to_json
+    
       
+        get "/users/current_user" do
+            user = User.find_by(id: session[:user_id] ) 
+            puts "XXXXX"
+            puts session[:user_id]
+            
+            if(user)
+
+               {loggedin: true, user: user}.to_json
             else
-                puts "Failed"
-                message = {:error => "Wrong username or password"}
-                message.to_json
-                
-            end
-
-            # users = User.all
-            # users.to_json
-         end
-      
-      
-         #logout
-        #  def logout
-        #     session.delete :user_id
-        #     head :no_content
-        #  end
+                status 401
+               {loggedin: false}.to_json
+            end      
+        end
 
         # post "/users" do
         #     user_name = params[:myusername]
