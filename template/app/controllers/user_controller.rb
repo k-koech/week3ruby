@@ -1,6 +1,9 @@
 class UserController < ApplicationController
     # Routings
         get "/users" do
+           authorize
+        #    puts "XXXXX"
+           puts session[:user_id].blank?
            users = User.all
            users.to_json
         end
@@ -8,8 +11,7 @@ class UserController < ApplicationController
       
         get "/users/current_user" do
             user = User.find_by(id: session[:user_id] ) 
-            puts "XXXXX"
-            puts session[:user_id]
+           
             
             if(user)
 
