@@ -15,7 +15,7 @@ class UserController < ApplicationController
             
             if(user)
 
-               {loggedin: true, user: user}.to_json
+               {user: user}.to_json
             else
                 status 401
                {loggedin: false}.to_json

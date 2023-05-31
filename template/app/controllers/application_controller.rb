@@ -12,6 +12,8 @@ class ApplicationController < Sinatra::Base
       if session[:user_id].blank?
         halt 401, {:error => "Login to perfom the operation"}.to_json # Return a 401 Unauthorized status code or any other response you prefer
       end
+
+      @current_user = User.find_by(id: session[:user_id] )
     end
 
 

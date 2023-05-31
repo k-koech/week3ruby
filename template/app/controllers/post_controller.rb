@@ -2,13 +2,14 @@ class PostController < ApplicationController
 
         # Get all post
         get "/posts" do
-            # authorize
+            authorize
             posts = Post.all
             posts.to_json(include: [:user, :comments])
        end
 
       #  get single post
       get "/posts/:id" do
+        
           count_posts = Post.where(id: params[:id]).count() #Integer 2,3,4,5
           if count_posts>0
               posts = Post.find_by(id: params[:id])
@@ -21,12 +22,15 @@ class PostController < ApplicationController
 
       # add post
        post "/posts" do
+          authorize
           title = params[:title]
           content = params[:content]
           user = params[:user]
 
-          if(title.present? && content.present? && user.present?)
-              post = Post.create(title: title, content: content, user_id: user)
+          if(title.present? && content.present?)
+               post = @current_user.posts.create(title: title, content: content)
+  
+            #   post = Post.create(title: title, content: content, user_id: user)
               if post
                   message = {:succcess => "Post created successfully!!"}
                   message.to_json
